@@ -37,8 +37,44 @@ export default function App() {
   }
 
   return (
-    <div>
-      <h1>Start here!</h1>
-    </div>
+    <Container maxWidth="sm">
+      <form noValidate>
+        <TextField
+          variant="outlined"
+          margin="normal"
+          required
+          fullWidth
+          id="firstname"
+          label="First Name"
+          name="firstname"
+          autoFocus
+          value={firstName}
+          onChange={(event) => setFirstName(event.target.value)}
+        />
+        <TextField
+          variant="outlined"
+          margin="normal"
+          required
+          fullWidth
+          id="lastname"
+          label="Last Name"
+          name="lastname"
+          autoFocus
+          value={lastName}
+          onChange={(event) => setLastName(event.target.value)}
+        />
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          fullWidth
+          onClick={addUser}
+          disabled={!firstName || !lastName}
+          startIcon={<AddCircleOutlineRounded />}
+        >
+          Submit
+        </Button>
+      </form>
+    </Container>
   );
 }
