@@ -72,6 +72,32 @@ export default function App() {
           value={lastName}
           onChange={(event) => setLastName(event.target.value)}
         />
+        <TextField
+          variant="outlined"
+          margin="normal"
+          required
+          fullWidth
+          id="email"
+          label="Email"
+          name="email"
+          autoFocus
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+        />
+        <TextField
+          variant="outlined"
+          margin="normal"
+          multiline
+          rows={10}
+          required
+          fullWidth
+          id="message"
+          label="Message"
+          name="message"
+          autoFocus
+          value={message}
+          onChange={(event) => setMessage(event.target.value)}
+        />
         <Button
           type="submit"
           variant="contained"
