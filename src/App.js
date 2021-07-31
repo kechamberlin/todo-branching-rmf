@@ -8,6 +8,23 @@ export default function App() {
   const [users, setUsers] = useState([]);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  useEffect(() => {
+    db.collection('users')
+      .orderBy('lastname', 'asc')
+      .onSnapshot((snapshot) => {
+        setUsers(
+          snapshot.docs.map((doc) => {
+            return {
+              id: doc.id,
+              firstname: doc.data().firstname,
+              lastname: doc.data().lastname,
+              datatime: doc.data().datatime,
+            };
+          })
+        );
+      });
+  }, []);
+
   return (
     <div>
       <h1>Start here!</h1>
