@@ -8,6 +8,9 @@ export default function App() {
   const [users, setUsers] = useState([]);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+
   useEffect(() => {
     db.collection('users')
       .orderBy('lastname', 'asc')
@@ -18,6 +21,8 @@ export default function App() {
               id: doc.id,
               firstname: doc.data().firstname,
               lastname: doc.data().lastname,
+              email: doc.data().email,
+              message: doc.data().message,
               datatime: doc.data().datatime,
             };
           })
@@ -30,10 +35,14 @@ export default function App() {
     db.collection('users').add({
       firstname: firstName,
       lastname: lastName,
+      email: email,
+      message: message,
       datetime: firebase.firestore.FieldValue.serverTimestamp(),
     });
     setFirstName('');
     setLastName('');
+    setEmail('');
+    setMessage('');
   }
 
   return (
@@ -63,13 +72,39 @@ export default function App() {
           value={lastName}
           onChange={(event) => setLastName(event.target.value)}
         />
+        <TextField
+          variant="outlined"
+          margin="normal"
+          required
+          fullWidth
+          id="email"
+          label="Email"
+          name="email"
+          autoFocus
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+        />
+        <TextField
+          variant="outlined"
+          margin="normal"
+          multiline
+          rows={10}
+          required
+          fullWidth
+          id="message"
+          label="Message"
+          name="message"
+          autoFocus
+          value={message}
+          onChange={(event) => setMessage(event.target.value)}
+        />
         <Button
           type="submit"
           variant="contained"
           color="primary"
           fullWidth
           onClick={addUser}
-          disabled={!firstName || !lastName}
+          disabled={!firstName || !lastName || !email || !message}
           startIcon={<AddCircleOutlineRounded />}
         >
           Submit
