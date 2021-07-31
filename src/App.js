@@ -18,6 +18,13 @@ function App() {
         >
           Learn React
         </a>
+        <p>This is Feature B added by Developer B</p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat,
+          magnam totam. Rem atque illo nesciunt illum dolorem inventore dolores
+          corrupti aspernatur dignissimos neque accusantium dolore cupiditate
+          eligendi alias, voluptate provident!
+        </p>
       </header>
     </div>
   );
