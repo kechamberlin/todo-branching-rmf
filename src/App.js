@@ -127,6 +127,24 @@ export default function App() {
           Submit
         </Button>
       </form>
+
+      <h1>User Comments</h1>
+      <List dense={true}>
+        {users.map((user) => (
+          <ListItem key={user.id}>
+            <ListItemText
+              primary={
+                <React.Fragment>
+                  <Typography>
+                    <strong>{`${user.firstname} ${user.lastname}`}</strong>
+                  </Typography>
+                  {` - ${user.message}`}
+                </React.Fragment>
+              }
+            />
+          </ListItem>
+        ))}
+      </List>
     </Container>
   );
 }
