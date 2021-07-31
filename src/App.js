@@ -104,7 +104,7 @@ export default function App() {
           color="primary"
           fullWidth
           onClick={addUser}
-          disabled={!firstName || !lastName}
+          disabled={!firstName || !lastName || !email || !message}
           startIcon={<AddCircleOutlineRounded />}
         >
           Submit
