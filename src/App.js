@@ -25,6 +25,17 @@ export default function App() {
       });
   }, []);
 
+  function addUser(event) {
+    event.preventDefault();
+    db.collection('users').add({
+      firstname: firstName,
+      lastname: lastName,
+      datetime: firebase.firestore.FieldValue.serverTimestamp(),
+    });
+    setFirstName('');
+    setLastName('');
+  }
+
   return (
     <div>
       <h1>Start here!</h1>
