@@ -21,6 +21,8 @@ export default function App() {
               id: doc.id,
               firstname: doc.data().firstname,
               lastname: doc.data().lastname,
+              email: doc.data().email,
+              message: doc.data().message,
               datatime: doc.data().datatime,
             };
           })
