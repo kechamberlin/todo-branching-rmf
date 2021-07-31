@@ -35,10 +35,14 @@ export default function App() {
     db.collection('users').add({
       firstname: firstName,
       lastname: lastName,
+      email: email,
+      message: message,
       datetime: firebase.firestore.FieldValue.serverTimestamp(),
     });
     setFirstName('');
     setLastName('');
+    setEmail('');
+    setMessage('');
   }
 
   return (
