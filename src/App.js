@@ -8,6 +8,9 @@ export default function App() {
   const [users, setUsers] = useState([]);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+
   useEffect(() => {
     db.collection('users')
       .orderBy('lastname', 'asc')
