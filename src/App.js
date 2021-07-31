@@ -1,8 +1,25 @@
+import React, { useEffect, useState } from 'react';
 import db from './firebase-config';
 import firebase from 'firebase';
-import { AddCircleOutlineRounded } from '@material-ui/icons';
-import { Button, TextField, Container } from '@material-ui/core';
-import { useEffect, useState } from 'react';
+import {
+  AddCircleOutlineRounded,
+  DeleteOutlineRounded,
+  Edit,
+} from '@material-ui/icons';
+import {
+  Button,
+  TextField,
+  Container,
+  IconButton,
+  List,
+  ListItem,
+  ListItemSecondaryAction,
+  ListItemText,
+  Dialog,
+  DialogContent,
+  DialogActions,
+  Typography,
+} from '@material-ui/core';
 
 export default function App() {
   const [users, setUsers] = useState([]);
@@ -13,7 +30,7 @@ export default function App() {
 
   useEffect(() => {
     db.collection('users')
-      .orderBy('lastname', 'asc')
+      .orderBy('datetime', 'desc')
       .onSnapshot((snapshot) => {
         setUsers(
           snapshot.docs.map((doc) => {
@@ -110,6 +127,24 @@ export default function App() {
           Submit
         </Button>
       </form>
+
+      <h1>User Comments</h1>
+      <List dense={true}>
+        {users.map((user) => (
+          <ListItem key={user.id}>
+            <ListItemText
+              primary={
+                <React.Fragment>
+                  <Typography>
+                    <strong>{`${user.firstname} ${user.lastname}`}</strong>
+                  </Typography>
+                  {` - ${user.message}`}
+                </React.Fragment>
+              }
+            />
+          </ListItem>
+        ))}
+      </List>
     </Container>
   );
 }
