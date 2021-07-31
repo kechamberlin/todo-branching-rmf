@@ -30,7 +30,7 @@ export default function App() {
 
   useEffect(() => {
     db.collection('users')
-      .orderBy('lastname', 'asc')
+      .orderBy('datetime', 'desc')
       .onSnapshot((snapshot) => {
         setUsers(
           snapshot.docs.map((doc) => {
