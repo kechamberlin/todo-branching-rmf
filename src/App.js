@@ -62,6 +62,10 @@ export default function App() {
     setMessage('');
   }
 
+  function deleteUser(id) {
+    db.collection('users').doc(id).delete();
+  }
+
   return (
     <Container maxWidth="sm">
       <form noValidate>
@@ -142,6 +146,15 @@ export default function App() {
                 </React.Fragment>
               }
             />
+            <ListItemSecondaryAction>
+              <IconButton
+                edge="end"
+                aria-label="delete"
+                onClick={() => deleteUser(user.id)}
+              >
+                <DeleteOutlineRounded />
+              </IconButton>
+            </ListItemSecondaryAction>
           </ListItem>
         ))}
       </List>
