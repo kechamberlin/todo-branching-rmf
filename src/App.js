@@ -62,6 +62,10 @@ export default function App() {
     setMessage('');
   }
 
+  function deleteUser(id) {
+    db.collection('users').doc(id).delete();
+  }
+
   return (
     <Container maxWidth="sm">
       <form noValidate>
