@@ -146,6 +146,15 @@ export default function App() {
                 </React.Fragment>
               }
             />
+            <ListItemSecondaryAction>
+              <IconButton
+                edge="end"
+                aria-label="delete"
+                onClick={() => deleteUser(user.id)}
+              >
+                <DeleteOutlineRounded />
+              </IconButton>
+            </ListItemSecondaryAction>
           </ListItem>
         ))}
       </List>
