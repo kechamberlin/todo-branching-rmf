@@ -27,6 +27,14 @@ export default function App() {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
+  const [open, setOpen] = useState(false);
+  const [updateFirstName, setUpdateFirstName] = useState('');
+  const [updateLastName, setUpdateLastName] = useState('');
+  const [updateEmail, setUpdateEmail] = useState('');
+  const [updateMessage, setUpdateMessage] = useState('');
+  const [toUpdateId, setToUpdateId] = useState('');
+
+  console.log(users);
 
   useEffect(() => {
     db.collection('users')
@@ -40,7 +48,7 @@ export default function App() {
               lastname: doc.data().lastname,
               email: doc.data().email,
               message: doc.data().message,
-              datatime: doc.data().datatime,
+              datetime: doc.data().datetime,
             };
           })
         );
@@ -64,6 +72,29 @@ export default function App() {
 
   function deleteUser(id) {
     db.collection('users').doc(id).delete();
+  }
+
+  function openUpdateDialog(user) {
+    setOpen(true);
+    setToUpdateId(user.id);
+    setUpdateFirstName(user.firstname);
+    setUpdateLastName(user.lastname);
+    setUpdateEmail(user.email);
+    setUpdateMessage(user.message);
+  }
+
+  function editUser() {
+    db.collection('users').doc(toUpdateId).update({
+      firstname: updateFirstName,
+      lastname: updateLastName,
+      email: updateEmail,
+      message: updateMessage,
+    });
+    setOpen(false);
+  }
+
+  function handleClose() {
+    setOpen(false);
   }
 
   return (
@@ -149,6 +180,13 @@ export default function App() {
             <ListItemSecondaryAction>
               <IconButton
                 edge="end"
+                aria-label="Edit"
+                onClick={() => openUpdateDialog(user)}
+              >
+                <Edit />
+              </IconButton>
+              <IconButton
+                edge="end"
                 aria-label="delete"
                 onClick={() => deleteUser(user.id)}
               >
@@ -158,6 +196,59 @@ export default function App() {
           </ListItem>
         ))}
       </List>
+
+      <Dialog open={open} onClose={handleClose}>
+        <DialogContent>
+          <TextField
+            autoFocus
+            margin="normal"
+            label="Update First Name"
+            type="text"
+            fullWidth
+            name="updateUserFirstName"
+            value={updateFirstName}
+            onChange={(event) => setUpdateFirstName(event.target.value)}
+          />
+          <TextField
+            autoFocus
+            margin="normal"
+            label="Update Last Name"
+            type="text"
+            fullWidth
+            name="updateUserLastName"
+            value={updateLastName}
+            onChange={(event) => setUpdateLastName(event.target.value)}
+          />
+          <TextField
+            autoFocus
+            margin="normal"
+            label="Update Email"
+            type="text"
+            fullWidth
+            name="updateUserEmail"
+            value={updateEmail}
+            onChange={(event) => setUpdateEmail(event.target.value)}
+          />
+          <TextField
+            autoFocus
+            margin="normal"
+            label="Update Message"
+            type="text"
+            fullWidth
+            name="updateUserMessage"
+            value={updateMessage}
+            onChange={(event) => setUpdateMessage(event.target.value)}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={editUser} color="primary">
+            Save
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Container>
   );
 }
